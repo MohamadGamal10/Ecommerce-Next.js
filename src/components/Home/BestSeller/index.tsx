@@ -3,8 +3,11 @@ import SingleItem from "./SingleItem"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
+import { Iproduct } from "@/types/product"
 
-const BestSeller = () => {
+const BestSeller = async() => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?limit=6`)
+    const products = await res.json()
     return (
         <section className="pt-17.5">
             <div className="container">
@@ -23,8 +26,8 @@ const BestSeller = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
                     {
-                        Array.from({ length: 6 }).map((_, i) => (
-                            <SingleItem key={i} />
+                        products.data.map((product: Iproduct) => (
+                            <SingleItem key={product.id} product={product} />
                         ))
                     }
                 </div>

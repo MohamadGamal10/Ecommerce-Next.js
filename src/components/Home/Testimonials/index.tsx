@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import Image from 'next/image'
 import { useCallback, useEffect, useRef } from 'react';
-import data from '../Categories/categoryData';
+// import data from '../Categories/categoryData';
 import SingleItem from './SingleItem';
 
 const Testimonials = () => {

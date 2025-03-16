@@ -2,12 +2,13 @@
 import ProductItem from "@/components/Common/ProductItem"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { Iproduct } from "@/types/product"
 import Link from "next/link"
 
 const NewArrival = async() => {
-    const res = await fetch("https://backend-for-ecommerce-plateform2.onrender.com/api/v1/products?limit=8");
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?limit=8`);
     const products = await res.json();
-    console.log(products)
+    // console.log(products)
 
     return (
         <section>
@@ -45,7 +46,7 @@ const NewArrival = async() => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-10">
                     {
-                        products.data && products.data.map((item) => (
+                        products.data && products.data.map((item: Iproduct) => (
                             <ProductItem key={item.id} product={item} />
                         ))
                     }

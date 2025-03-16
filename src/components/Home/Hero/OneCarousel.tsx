@@ -26,7 +26,7 @@ const OneCarousel = () => {
                 <p className='text-gray-700 mt-2'>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi at ipsum at risus euismod lobortis in
                 </p>
-                <Link href="/product">
+                <Link href="/products">
                     <div className={cn(buttonVariants({ variant: "default" }), "px-10 py-6 mt-10 ease-in-out duration-300 hover:bg-[#3c50e0]")}>Shop Now</div>
                 </Link>
             </div>

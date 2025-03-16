@@ -1,8 +1,10 @@
-// import { Button } from '@/components/ui/button'
+import ProductModal from '@/components/Common/ProductModal'
+import Rating from '@/components/Common/Rating'
+import { Iproduct } from '@/types/product'
 import Image from 'next/image'
-import React from 'react'
 
-const SingleItem = () => {
+
+const SingleItem = ({ product }: { product: Iproduct }) => {
     return (
         <div className="group flex mx-auto w-full">
 
@@ -10,32 +12,22 @@ const SingleItem = () => {
                 <div className='relative bg-gray-100 w-full h-full py-auto p-1 rounded-md '>
                     <div className="flex flex-col space-y-2 text-center pt-10">
                         <div className="flex space-x-1 mx-auto">
-                            {
-                                Array.from({ length: 5 }).map((_, i) => (
-                                    <Image
-                                        key={i}
-                                        src="/images/icons/icon-star.svg"
-                                        alt="star icon"
-                                        width={14}
-                                        height={14}
-                                    />
-                                ))
-                            }
+                            <Rating product={product} />
                             <div className='ml-2'>
-                                (15)
+                                ({product.ratingsQuantity || 0})
                             </div>
                         </div>
-                        <h3 className='text-medium font-medium'>iPhone 14 Plus , 6/128GB</h3>
+                        <h3 className='text-medium font-medium'>{product.title}</h3>
                         <div className="flex space-x-3 font-medium mx-auto">
-                            <span className='text-lg   '>$699</span>
-                            <span className='text-lg text-gray-400 line-through'>$999</span>
+                            <span className='text-lg   '>${product.price}</span>
+                            <span className='text-lg text-gray-400 line-through'>${product.priceAfterDiscount}</span>
                         </div>
                     </div>
-                    <Image className='my-auto mx-auto p-12' src={`/images/arrivals/arrivals-0${2}.png`} width={250} height={250} alt="product" />
+                    <Image className='my-auto mx-auto p-12' src={product.imageCover} width={250} height={250} alt="product" />
                     <div className='absolute right-6 bottom-1 space-y-2   gap-2.5 pb-5 
   opacity-0 translate-x-4 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-0 '>
 
-                        <button
+                        {/* <button
                             // onClick={() => {
                             //   handleQuickViewUpdate();
                             //   openModal();
@@ -65,7 +57,8 @@ const SingleItem = () => {
                                     fill=""
                                 />
                             </svg>
-                        </button>
+                        </button> */}
+                        <ProductModal product={product} hover="hover:text-white hover:bg-blue-600" />
 
                         <button
                             // onClick={() => handleAddToCart()}

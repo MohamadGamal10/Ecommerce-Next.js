@@ -18,7 +18,7 @@ const Countdown = () => {
                         <span className='font-medium text-2xl text-blue-700'>Don’t Miss!!</span>
                         <h2 className='text-4xl font-bold'>Enhance Your Music Experience</h2>
                         <p className='text-md text-gray-700'>The Havit H206d is a wired PC headphone.</p>
-                        <div className="flex flex-wrap gap-4">
+                        <div className="flex flex-wrap gap-1 md:gap-4 ">
                             <div className="flex flex-col text-center space-y-1">
                                 <span className='text-3xl rounded-md font-bold  bg-white border-gray-300 border-1 px-4 py-3'>0-64</span>
                                 <span className='text-md font-sm'>Days</span>

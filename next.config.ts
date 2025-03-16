@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        // protocol: "http",
+        // hostname: "127.0.0.1",
+        // port: "8000",
         hostname: "backend-for-ecommerce-plateform2.onrender.com",
       },
     ],

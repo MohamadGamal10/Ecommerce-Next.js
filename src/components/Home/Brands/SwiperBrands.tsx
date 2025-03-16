@@ -6,14 +6,14 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import SingleItem from './SingleItem'
 import { useCallback, useEffect, useRef } from 'react';
 import { Swiper as SwiperType } from 'swiper/types';
-import { Icategory } from '@/types/category';
+import { Ibrand } from '@/types/brand';
 
 
 
-const SwiperCategories = ({ categories }: { categories: { data: Icategory[] } }) => {
+const SwiperBrands = ({ brands }: { brands: { data: Ibrand[] } }) => {
     const sliderRef = useRef<SwiperType | null>(null);
     // console.log(sliderRef);
-    console.log(categories)
+    // console.log(brands)
     const handlePrev = useCallback(() => {
         if (!sliderRef.current) return;
         sliderRef.current.slidePrev();
@@ -70,12 +70,12 @@ const SwiperCategories = ({ categories }: { categories: { data: Icategory[] } })
                                     </clipPath>
                                 </defs>
                             </svg>
-                            Categories
+                            Brands
                         </span>
                     </div>
                     <div className="flex ">
                         <h2 className="font-bold text-xl xl:text-3xl text-dark">
-                            Browse by Category
+                            Browse by Brands
                         </h2>
                     </div>
                 </div>
@@ -138,7 +138,7 @@ const SwiperCategories = ({ categories }: { categories: { data: Icategory[] } })
                 onSlideChange={() => console.log('slide change')}
             >
                 {
-                    categories.data && categories.data.map((item: Icategory) => (
+                    brands.data && brands.data.map((item: Ibrand) => (
                         <SwiperSlide className='p-3' key={item._id}>
                             <SingleItem item={item} />
                         </SwiperSlide>
@@ -150,4 +150,4 @@ const SwiperCategories = ({ categories }: { categories: { data: Icategory[] } })
     )
 }
 
-export default SwiperCategories
+export default SwiperBrands

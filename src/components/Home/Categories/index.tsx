@@ -2,13 +2,13 @@ import SwiperCategories from './SwiperCategories';
 
 const Categories = async() => {
 
-    const res = await fetch('https://backend-for-ecommerce-plateform2.onrender.com/api/v1/categories')
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/categories?limit=5`)
     const categories = await res.json()
 
     return (
         <section className="container pt-17.5">
             <div className="mb-10">
-                <SwiperCategories data={categories.data} />
+                <SwiperCategories categories={categories} />
             </div>
             <hr />
         </section>
