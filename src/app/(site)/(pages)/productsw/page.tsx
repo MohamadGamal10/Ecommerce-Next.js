@@ -39,58 +39,38 @@ import FilterComponent from "./_components/filterComponents";
 //   };
 // };
 
-// const buildQueryString = (searchParams: any) => {
-//   const params = new URLSearchParams();
-//   const limit = 8;
+const buildQueryString = (searchParams: any) => {
+  const params = new URLSearchParams();
+  const limit = 8;
 
-//   // Pagination
-//   params.set('page', searchParams.page || '1');
-//   params.set('limit', limit.toString());
+  // Pagination
+  params.set('page', searchParams.page || '1');
+  params.set('limit', limit.toString());
 
-//   // Sorting
-//   if (searchParams.sort) {
-//     switch(searchParams.sort) {
-//       case 'price-low-high': params.set('sort', '+price');
-//       case 'price-high-low': params.set('sort', '-price');
-//       case 'popularity': params.set('sort', '-sold');
-//       case 'rating': params.set('sort', '-ratingsAverage');
-//     }
-//   }
-
-//   // Filters
-//   if (searchParams.keyword) params.set('keyword', searchParams.keyword);
-//   if (searchParams.category) params.set('category', searchParams.category);
-//   if (searchParams.brand) params.set('brand', searchParams.brand);
-//   if (searchParams.priceFrom) params.set('price[gte]', searchParams.priceFrom);
-//   if (searchParams.priceTo) params.set('price[lte]', searchParams.priceTo);
-
-//   return params.toString();
-// };
-
-export default async function ProductsPage({ searchParams }: { searchParams: Record<string, string | string[]> }) {
-//   const  query  = new URLSearchParams(searchParams) // searchParams
-//   // const queryString = buildQueryString(searchParams);
-//   const qq = query.toString()
-//   console.log(qq)
-  // const productsUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?${qq}`;
-  // const productsUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/products`;
-
-   const query = new URLSearchParams();
-
-  // Handle cases where values might be arrays
-  Object.entries(searchParams).forEach(([key, value]) => {
-    if (Array.isArray(value)) {
-      value.forEach((v) => query.append(key, v));
-    } else {
-      query.append(key, value);
+  // Sorting
+  if (searchParams.sort) {
+    switch(searchParams.sort) {
+      case 'price-low-high': params.set('sort', '+price');
+      case 'price-high-low': params.set('sort', '-price');
+      case 'popularity': params.set('sort', '-sold');
+      case 'rating': params.set('sort', '-ratingsAverage');
     }
-  });
+  }
 
-  const queryString = query.toString();
-  console.log(queryString);
+  // Filters
+  if (searchParams.keyword) params.set('keyword', searchParams.keyword);
+  if (searchParams.category) params.set('category', searchParams.category);
+  if (searchParams.brand) params.set('brand', searchParams.brand);
+  if (searchParams.priceFrom) params.set('price[gte]', searchParams.priceFrom);
+  if (searchParams.priceTo) params.set('price[lte]', searchParams.priceTo);
 
+  return params.toString();
+};
+
+export default async function ProductsPage({ searchParams }: any) {
+
+  const queryString = buildQueryString(searchParams);
   const productsUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?${queryString}`;
-
   
   // Fetch data in parallel
   const [productsRes, categoriesRes, brandsRes] = await Promise.all([
