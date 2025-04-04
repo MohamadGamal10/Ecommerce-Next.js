@@ -1,16 +1,22 @@
 "use client";
 
 import { signinAction } from "@/actions/Auth/signinAction"
-import { notify } from "@/components/Common/useNotifaction"
+import { notify } from "@/hooks/useNotifaction"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+// import {setUser, userSelector } from "@/redux/auth/authSlice";
+// import { selectUserData, setUser } from "@/redux/auth/authSlice";
+// import { useAppDispatch } from "@/redux/hooks";
 import { SigninFormData, SigninSchema } from "@/schemas/signinSchema";
+// import { Iuser } from "@/types/user";
 import { zodResolver } from "@hookform/resolvers/zod";
+// import { serialize } from "cookie";
 import Link from "next/link"
+import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 // import { useActionState, useEffect } from "react"
 import { SubmitHandler, useForm } from "react-hook-form";
-import { ToastContainer } from "react-toastify"
+// import { useSelector } from "react-redux";
 
 
 export default function SigninPage() {
@@ -30,14 +36,19 @@ export default function SigninPage() {
     //         }, 3000)
     //     }
     // }, [state.success, state.data])
+    const router = useRouter();
+    // const dispatch = useAppDispatch();
+    // const data = useSelector(userSelector);
+    // console.log(data)
 
     const [pending, startTransition] = useTransition();
     const [serverError, setServerError] = useState<string | null>(null);
+    // const [cookie, setCookie] = useState<string | null>(null);
 
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<SigninFormData>({
         resolver: zodResolver(SigninSchema)
     })
-    const onSubmit: SubmitHandler<SigninFormData> = async (data) => {
+    const onSubmit: SubmitHandler<SigninFormData> = async(data) => {
 
         setServerError(null);
 
@@ -49,12 +60,23 @@ export default function SigninPage() {
             try {
                 const result = await signinAction({ success: false, data: { email: "", password: "" } }, formData);
                 if (result.success) {
-                    localStorage.setItem("token", result.data.token);
-                    localStorage.setItem("user", JSON.stringify(result.data.data));
+                    // localStorage.setItem("token", result.data.token);
+                    // const mycookie = serialize("token", result.data.token, {
+                    //     httpOnly: true,
+                    //     secure: process.env.NODE_ENV === "production",
+                    //     sameSite: "strict",
+                    //     path: "/",
+                    //     maxAge: 60 * 60 * 24 * 30, // 30 days
+                    // });
+                    // setCookie(mycookie);
+                    
+                    // localStorage.setItem("user", JSON.stringify(result.data.data));
+                    // await dispatch(setUser(result.data.data));
                     notify("تم تسجيل الدخول بنجاح", "success");
-                    setTimeout(() => {
-                        window.location.href = "/";
-                    }, 3000)
+                    router.push("/")
+                    // setTimeout(() => {
+                    //     window.location.href = "/";
+                    // }, 3000)
                 }
             } catch (error) {
                 console.error("Signup error:", error);
@@ -135,7 +157,6 @@ export default function SigninPage() {
                         </form>
                     </div>
                 </div>
-                <ToastContainer />
             </div>
         </>
     )

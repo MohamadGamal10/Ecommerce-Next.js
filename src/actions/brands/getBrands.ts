@@ -1,10 +1,20 @@
 "use server";
 
+const getBrands = async () => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/brands`);
+    const products = await res.json();
 
-const getBrands = async() => {
-   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/brands`);
-   const products = await res.json();
-   return products;
-}
+    if (!res.ok) {
+      throw new Error("Failed to fetch brands");
+    }
 
-export default getBrands
+    return products;
+    
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export default getBrands;

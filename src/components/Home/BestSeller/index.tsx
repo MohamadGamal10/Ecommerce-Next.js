@@ -4,6 +4,7 @@ import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { Iproduct } from "@/types/product"
+// import { ToastContainer } from "react-toastify"
 
 const BestSeller = async() => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?limit=6`)

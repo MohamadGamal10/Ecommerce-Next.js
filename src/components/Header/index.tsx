@@ -1,25 +1,62 @@
-"use client";
+// "use client";
 
 import Link from "next/link"
 import MobileNav from "./mobile-nav"
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { Iuser } from "@/types/user";
+// import { cookies } from "next/headers";
+import Logout from "./logout";
+import { getUserData } from "@/actions/user/getUserData";
+// import { Iuser } from "@/types/user";
+// import { useAppDispatch } from "@/redux/hooks";
+// import { useSelector } from "react-redux";
+// import { getUserData, setUser, userSelector } from "@/redux/auth/authSlice";
+// import Loading from "../Common/Loading";
+
+const Header = async () => {
+  // const [user, setUser] = useState<Iuser | null>(null);
+  // useEffect(() => {
+  //   const data = JSON.parse(localStorage.getItem("user") || "{}");
+  //   setUser(data)
+  // }, []);
 
 
-const Header = () => {
-  const [user, setUser] = useState<Iuser | null>(null);
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("user") || "{}");
-    setUser(data)
-  }, []);
+  // const dispatch = useAppDispatch();
 
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    window.location.reload();
-  }
-  console.log(user)
+  // useEffect(() => {
+  //   try {
+  //     dispatch(getUserData());
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }, [dispatch]);
+
+  // const user: Iuser | null = useSelector(userSelector);
+  // const loading = useSelector(selectChangeLoading);
+  // console.log(user)
+
+  // useEffect(() => {
+  //   const loadUserData = async () => {
+  //     try {
+  //       const data = await getUserData();
+  //       if (data) dispatch(setUser(data));
+  //     } catch (error) {
+  //       console.log('Error loading user data:', error);
+  //     } 
+  //   };
+
+  //   if (!user?.data) loadUserData();
+  // }, [dispatch, user]);
+
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
+
+  const user =  await getUserData();
+  // console.log(user)
+
+
   return (
     <header className="sticky top-0 z-50  bg-white shadow-sm">
       <div className="container">
@@ -62,13 +99,13 @@ const Header = () => {
 
           <nav className="hidden sm:flex  items-center space-x-6">
             {
-              user && user.name ? (
+              user && user?.data?.name ? (
                 <Menu as="div" className="relative ml-3 cursor-pointer">
                   <div>
                     <MenuButton className="relative flex cursor-pointer">
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center ">
                         <svg
                           width="24"
                           height="24"
@@ -96,7 +133,7 @@ const Header = () => {
                           <div className="font-medium flex items-center text-sm uppercase text-black">
                             <ChevronDown className="ml-2 h-4 w-4 mt-0.5" />
                             <div>
-                              {user.name || ""}
+                              {user?.data?.name}
                             </div>
                           </div>
                         </div>
@@ -115,14 +152,7 @@ const Header = () => {
                         Your Profile
                       </Link>
                     </MenuItem>
-                    <MenuItem>
-                      <div
-                        onClick={handleLogout}
-                        className="block cursor-pointer px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                      >
-                        Sign out
-                      </div>
-                    </MenuItem>
+                      <Logout />
                   </MenuItems>
                 </Menu>
               ) : (
@@ -159,6 +189,104 @@ const Header = () => {
                   </div>
                 </Link>
               )
+
+              // user && user?.data?.name  ? (
+              //   <Menu as="div" className="relative ml-3 cursor-pointer">
+              //     <div>
+              //       <MenuButton className="relative flex cursor-pointer">
+              //         <span className="absolute -inset-1.5" />
+              //         <span className="sr-only">Open user menu</span>
+              //         <div className="flex items-center ">
+              //           <svg
+              //             width="24"
+              //             height="24"
+              //             viewBox="0 0 24 24"
+              //             fill="none"
+              //             xmlns="http://www.w3.org/2000/svg"
+              //           >
+              //             <path
+              //               fillRule="evenodd"
+              //               clipRule="evenodd"
+              //               d="M12 1.25C9.37666 1.25 7.25001 3.37665 7.25001 6C7.25001 8.62335 9.37666 10.75 12 10.75C14.6234 10.75 16.75 8.62335 16.75 6C16.75 3.37665 14.6234 1.25 12 1.25ZM8.75001 6C8.75001 4.20507 10.2051 2.75 12 2.75C13.7949 2.75 15.25 4.20507 15.25 6C15.25 7.79493 13.7949 9.25 12 9.25C10.2051 9.25 8.75001 7.79493 8.75001 6Z"
+              //               fill="#3C50E0"
+              //             />
+              //             <path
+              //               fillRule="evenodd"
+              //               clipRule="evenodd"
+              //               d="M12 12.25C9.68646 12.25 7.55494 12.7759 5.97546 13.6643C4.4195 14.5396 3.25001 15.8661 3.25001 17.5L3.24995 17.602C3.24882 18.7638 3.2474 20.222 4.52642 21.2635C5.15589 21.7761 6.03649 22.1406 7.22622 22.3815C8.41927 22.6229 9.97424 22.75 12 22.75C14.0258 22.75 15.5808 22.6229 16.7738 22.3815C17.9635 22.1406 18.8441 21.7761 19.4736 21.2635C20.7526 20.222 20.7512 18.7638 20.7501 17.602L20.75 17.5C20.75 15.8661 19.5805 14.5396 18.0246 13.6643C16.4451 12.7759 14.3136 12.25 12 12.25ZM4.75001 17.5C4.75001 16.6487 5.37139 15.7251 6.71085 14.9717C8.02681 14.2315 9.89529 13.75 12 13.75C14.1047 13.75 15.9732 14.2315 17.2892 14.9717C18.6286 15.7251 19.25 16.6487 19.25 17.5C19.25 18.8078 19.2097 19.544 18.5264 20.1004C18.1559 20.4022 17.5365 20.6967 16.4762 20.9113C15.4193 21.1252 13.9742 21.25 12 21.25C10.0258 21.25 8.58075 21.1252 7.5238 20.9113C6.46354 20.6967 5.84413 20.4022 5.4736 20.1004C4.79033 19.544 4.75001 18.8078 4.75001 17.5Z"
+              //               fill="#3C50E0"
+              //             />
+              //           </svg>
+              //           <div className="flex flex-col">
+              //             <p className="text-[13px] text-gray-500">
+              //               Account
+              //             </p>
+              //             <div className="font-medium flex items-center text-sm uppercase text-black">
+              //               <ChevronDown className="ml-2 h-4 w-4 mt-0.5" />
+              //               <div>
+              //                 {user?.data?.name}
+              //               </div>
+              //             </div>
+              //           </div>
+              //         </div>
+              //       </MenuButton>
+              //     </div>
+              //     <MenuItems
+              //       transition
+              //       className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 ring-1 shadow-lg ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+              //     >
+              //       <MenuItem>
+              //         <Link
+              //           href="/user/profile"
+              //           className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+              //         >
+              //           Your Profile
+              //         </Link>
+              //       </MenuItem>
+              //       <MenuItem>
+              //         <div
+              //           // onClick={handleLogout}
+              //           className="block cursor-pointer px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+              //         >
+              //           Sign out
+              //         </div>
+              //       </MenuItem>
+              //     </MenuItems>
+              //   </Menu>
+              // ) : (
+              //   <Link href="/signin">
+              //     <div className="flex items-center space-x-2">
+              //       <svg
+              //         width="24"
+              //         height="24"
+              //         viewBox="0 0 24 24"
+              //         fill="none"
+              //         xmlns="http://www.w3.org/2000/svg"
+              //       >
+              //         <path
+              //           fillRule="evenodd"
+              //           clipRule="evenodd"
+              //           d="M12 1.25C9.37666 1.25 7.25001 3.37665 7.25001 6C7.25001 8.62335 9.37666 10.75 12 10.75C14.6234 10.75 16.75 8.62335 16.75 6C16.75 3.37665 14.6234 1.25 12 1.25ZM8.75001 6C8.75001 4.20507 10.2051 2.75 12 2.75C13.7949 2.75 15.25 4.20507 15.25 6C15.25 7.79493 13.7949 9.25 12 9.25C10.2051 9.25 8.75001 7.79493 8.75001 6Z"
+              //           fill="#3C50E0"
+              //         />
+              //         <path
+              //           fillRule="evenodd"
+              //           clipRule="evenodd"
+              //           d="M12 12.25C9.68646 12.25 7.55494 12.7759 5.97546 13.6643C4.4195 14.5396 3.25001 15.8661 3.25001 17.5L3.24995 17.602C3.24882 18.7638 3.2474 20.222 4.52642 21.2635C5.15589 21.7761 6.03649 22.1406 7.22622 22.3815C8.41927 22.6229 9.97424 22.75 12 22.75C14.0258 22.75 15.5808 22.6229 16.7738 22.3815C17.9635 22.1406 18.8441 21.7761 19.4736 21.2635C20.7526 20.222 20.7512 18.7638 20.7501 17.602L20.75 17.5C20.75 15.8661 19.5805 14.5396 18.0246 13.6643C16.4451 12.7759 14.3136 12.25 12 12.25ZM4.75001 17.5C4.75001 16.6487 5.37139 15.7251 6.71085 14.9717C8.02681 14.2315 9.89529 13.75 12 13.75C14.1047 13.75 15.9732 14.2315 17.2892 14.9717C18.6286 15.7251 19.25 16.6487 19.25 17.5C19.25 18.8078 19.2097 19.544 18.5264 20.1004C18.1559 20.4022 17.5365 20.6967 16.4762 20.9113C15.4193 21.1252 13.9742 21.25 12 21.25C10.0258 21.25 8.58075 21.1252 7.5238 20.9113C6.46354 20.6967 5.84413 20.4022 5.4736 20.1004C4.79033 19.544 4.75001 18.8078 4.75001 17.5Z"
+              //           fill="#3C50E0"
+              //         />
+              //       </svg>
+              //       <div className="flex flex-col">
+              //         <p className="text-[13px] text-gray-500">
+              //           Account
+              //         </p>
+              //         <p className="font-medium text-sm text-black">
+              //           Sign In
+              //         </p>
+              //       </div>
+              //     </div>
+              //   </Link>
+              // )
             }
 
 
@@ -216,7 +344,6 @@ const Header = () => {
 
         </div>
       </div>
-
 
     </header>
   )

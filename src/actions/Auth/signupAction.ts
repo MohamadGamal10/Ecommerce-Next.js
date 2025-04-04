@@ -1,5 +1,7 @@
 "use server";
 
+import { cookies } from "next/headers";
+
 
 interface IprevState {
   success: boolean;
@@ -14,6 +16,7 @@ export const signupAction = async (
   prevState: IprevState,
   formData: FormData
 ) => {
+  const cookieStore = await cookies();
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/signup`, {
     method: "POST",
     headers: {
@@ -29,12 +32,24 @@ export const signupAction = async (
   });
 
   if (!response.ok) {
-    throw new Error("Failed to login");
+    throw new Error("Failed to signup");
   }
 
   const data = await response.json();
 
-  //   Return the data along with a redirect action
+  
+  if (data?.token) {
+    cookieStore.set({
+      name: "token",
+      value: data.token,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 30, // 30 days
+    });
+  }
+
   return {
     success: true,
     data,

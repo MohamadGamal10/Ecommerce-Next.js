@@ -3,13 +3,13 @@
 import { Button, buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
-import { ToastContainer } from "react-toastify";
 import { useForm, SubmitHandler } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { SignupFormData, SignupSchema } from "@/schemas/signupSchema";
 import { useState, useTransition } from "react";
 import { signupAction } from "@/actions/Auth/signupAction";
-import { notify } from "@/components/Common/useNotifaction";
+import { notify } from "@/hooks/useNotifaction";
+import { useRouter } from "next/navigation";
 
 
 export default function SignupPage() {
@@ -20,7 +20,7 @@ export default function SignupPage() {
     // })
     // console.log(state)
 
-        // useEffect(() => {
+    // useEffect(() => {
     //     if (state.success) {
     //         localStorage.setItem("token", state.data.token);
     //         localStorage.setItem("user", JSON.stringify(state.data.data));
@@ -32,6 +32,7 @@ export default function SignupPage() {
     // }, [state.success, state.data])
 
     // with react hook form
+    const router = useRouter();
     const [pending, startTransition] = useTransition();
     const [serverError, setServerError] = useState<string | null>(null);
 
@@ -59,12 +60,8 @@ export default function SignupPage() {
                 }, formData);
 
                 if (result.success) {
-                    localStorage.setItem("token", result.data.token);
-                    localStorage.setItem("user", JSON.stringify(result.data.data));
                     notify("تم تسجيل الحساب بنجاح", "success");
-                    setTimeout(() => {
-                        window.location.href = "/";
-                    }, 3000)
+                    router.push("/");
                 }
             } catch (error) {
                 console.error("Signup error:", error);
@@ -179,7 +176,6 @@ export default function SignupPage() {
                         </form>
                     </div>
                 </div>
-                <ToastContainer />
             </div>
         </>
     )

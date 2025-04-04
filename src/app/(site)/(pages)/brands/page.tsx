@@ -3,8 +3,14 @@ import { Icategory } from '@/types/category'
 import React from 'react'
 
 const page = async() => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/brands`)
-    const categories = await res.json()
+    let categories = {data: []};
+     try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/brands`)
+         categories = await res.json();
+     } catch (error) {
+        console.log(error)
+     }
+   
     return (
         <section className='my-10'>
             <div className="container">

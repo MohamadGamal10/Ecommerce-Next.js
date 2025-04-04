@@ -20,7 +20,7 @@ const getProducts = async () => {
         const products = await res.json();
         return products;
     } catch (error) {
-        console.error(error);
+        console.log(error);
         return [];
     }
 };

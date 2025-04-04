@@ -1,43 +1,10 @@
-// "use client";
-// "use server";
-
-
-
 import ProductItem from "@/components/Common/ProductItem";
-import { Icategory } from "@/types/category";
+// import { Icategory } from "@/types/category";
 import { Iproduct } from "@/types/product";
-import Link from "next/link";
-import { ArrowDownZA, ArrowUpZA, ChevronDown, ShoppingBasket, Star } from "lucide-react"
-
-import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-// import getProducts from "@/actions/products/getProducts";
-// import getCategories from "@/actions/categories/getCategories";
-// import getBrands from "@/actions/brands/getBrands";
-// import { useEffect, useState } from "react";
+// import Link from "next/link";
 import FilterComponent from "./_components/filterComponents";
-// import { useEffect, useState } from "react";
-// import { set } from "zod";
-
-
-// export async function getServerSideProps({ query }: any) {
-//   const categoryId = query.category || "";
-//   console.log(categoryId)
-// }
-
-// export const getServerSideProps = async () => {
-//   const products = await getProducts(); // Ensure you await it
-//   return {
-//       props: { products },
-//   };
-// };
+import SortProducts from "./_components/sortProducts";
+import TopCategories from "@/components/Common/TopCategories";
 
 // const buildQueryString = (searchParams: any) => {
 //   const params = new URLSearchParams();
@@ -68,12 +35,6 @@ import FilterComponent from "./_components/filterComponents";
 // };
 
 export default async function ProductsPage({ searchParams }: { searchParams: Record<string, string | string[]> }) {
-//   const  query  = new URLSearchParams(searchParams) // searchParams
-//   // const queryString = buildQueryString(searchParams);
-//   const qq = query.toString()
-//   console.log(qq)
-  // const productsUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?${qq}`;
-  // const productsUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/products`;
 
    const query = new URLSearchParams();
 
@@ -104,86 +65,10 @@ export default async function ProductsPage({ searchParams }: { searchParams: Rec
   const brands = await brandsRes.json();
 
 
-  // const categoryId =  await searchParams.category || '';
-  // const brandId =  await searchParams.brand || '';
-  // const categoryId =  await searchParams.category || '';
-  // console.log(searchParams)
-  
-  // const [products, setProducts] = useState([]);
-
-
-  // const products = await getProducts();
-  // const categories = await getCategories();
-  // const brands = await getBrands();
-
-  // console.log(products)
-  // console.log(categories)
-  // console.log(brands)
-
-  // const [products, setProducts] = useState([]);
-  // const [categories, setCategories] = useState([]);
-  // const [brands, setBrands] = useState([]);
-
-  //   useEffect(() => {
-  //       getProducts().then(setProducts);
-  //       getCategories().then(setCategories);
-  //       getBrands().then(setBrands);
-  //   }, []);
-
-
-
-  // useEffect(() => {
-  // setProducts(getProducts());
-  // setCategories(getCategories());
-  // setBrands(getBrands());
-  // }, [])
-
-  
-
-  
-
-  // const resP = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products`)
-  // const products = await resP.json();
-
-  // const resPS = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?sort=${sort}&limit=${limit}&page=${page}&keyword=${word}&${queryCat}&${brandCat}${pricefromString}${priceToString}`)
-  // const resPS = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?sort=${sort}&limit=${limit}&page=${page}&keyword=${word}&${queryCat}&${brandCat}${pricefromString}${priceToString}`)
-  // const productsS = await resPS.json();
-
-  // const resP2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?category=${categoryId}`)
-  // const productsFiltered = await resP2.json();
-
-  // const resb2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?brand=${brandId}`)
-  // const productsFiltereb = await resb2.json();
-  
-
-  // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/categories`)
-  // const categories = await res.json();
-
-  // const categories = getCategories();
-
-  // const resB = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/brands`)
-  // const brands = await resB.json();
-  // const brands =getBrands();
-
-  // const handleCategoryChange = (categoryId: string) => {
-  //   // Handle category change logic here
-  //   console.log(`Selected category: ${categoryId}`);
-  // };
-
-
 
   return (
     <section className='mb-10'>
-      <div className="flex bg-gray-100 py-4 mb-10">
-        <div className="container">
-          {
-            categories.data && categories.data.map((category: Icategory) => (
-              <Link key={category._id} href={category._id} className="sm:mr-6 mr-2 font-small text-gray-700 hover:text-blue-600 duration-300 ease-out cap">{category.name}</Link>
-            ))
-          }
-          <Link href={"/categories"} className="md:mr-3 mr-1 font-small text-gray-700 hover:text-blue-600 duration-300 ease-out cap">more</Link>
-        </div>
-      </div>
+     <TopCategories color="bg-gray-100" />
       <div className="container">
 
         <div>
@@ -228,35 +113,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Rec
               </span>
             </div>
             <div>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline">Sort<ChevronDown className="ml-2 h-4 w-4" /></Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56" align="end">
-                  <DropdownMenuGroup>
-                    <DropdownMenuItem>
-                      <ShoppingBasket />
-                      <span>Best sellers</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>
-                      <Star />
-                      <span>Highest rated</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>
-                      <ArrowUpZA />
-                      <span>Price from low to high</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>
-                      <ArrowDownZA />
-                      <span>Price from high to low</span>
-                    </DropdownMenuItem>
-                  </DropdownMenuGroup>
-
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <SortProducts />
             </div>
           </div>
           <div className="flex ">
@@ -270,7 +127,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Rec
         <FilterComponent
             categories={categories}
             brands={brands}
-            searchParams={searchParams}
+            // searchParams={searchParams}
           />
        {/* <FilterComponent categories={categories} brands={brands} /> */}
           <div className="flex flex-wrap col-span-3 gap-8 mx-auto" >
@@ -309,218 +166,3 @@ export default async function ProductsPage({ searchParams }: { searchParams: Rec
     </section>
   );
 };
-
-// export default ProductsPage;
-
-
-
-//  // Convert to client component
-// import { useState, useEffect } from 'react';
-// import ProductItem from "@/components/Common/ProductItem";
-// import { Icategory } from "@/types/category";
-// import { Iproduct } from "@/types/product";
-// // import Link from "next/link";
-// import { ArrowDownZA, ArrowUpZA, ChevronDown, ShoppingBasket, Star } from "lucide-react"
-// import { Button } from "@/components/ui/button"
-// // ... other imports
-
-// const ProductsPage = () => {
-//   const [products, setProducts] = useState<Iproduct[]>([]);
-//   const [categories, setCategories] = useState<Icategory[]>([]);
-//   const [brands, setBrands] = useState<Icategory[]>([]);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState<string | null>(null);
-  
-//   // Filter/Sort states
-//   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-//   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
-//   const [priceRange, setPriceRange] = useState<[number, number]>([0, Infinity]);
-//   const [sortBy, setSortBy] = useState<string>('default');
-
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         const [productsRes, categoriesRes, brandsRes] = await Promise.all([
-//           fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products`),
-//           fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/categories`),
-//           fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/brands`)
-//         ]);
-
-//         const productsData = await productsRes.json();
-//         const categoriesData = await categoriesRes.json();
-//         const brandsData = await brandsRes.json();
-
-//         setProducts(productsData.data);
-//         setCategories(categoriesData.data);
-//         setBrands(brandsData.data);
-//       } catch (err) {
-//         setError(err instanceof Error ? err.message : 'Failed to fetch data');
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     fetchData();
-//   }, []);
-
-//   const handleCategoryChange = (categoryId: string) => {
-//     setSelectedCategories(prev =>
-//       prev.includes(categoryId)
-//         ? prev.filter(id => id !== categoryId)
-//         : [...prev, categoryId]
-//     );
-//   };
-
-//   const handleBrandChange = (brandId: string) => {
-//     setSelectedBrands(prev =>
-//       prev.includes(brandId)
-//         ? prev.filter(id => id !== brandId)
-//         : [...prev, brandId]
-//     );
-//   };
-
-//   const handlePriceRange = (type: 'min' | 'max', value: number) => {
-//     setPriceRange(prev => [
-//       type === 'min' ? value : prev[0],
-//       type === 'max' ? value : prev[1]
-//     ]);
-//   };
-
-//   const filteredProducts = products.filter(product => {
-//     const matchesCategory = selectedCategories.length === 0 || 
-//       selectedCategories.includes(product.category);
-//     const matchesBrand = selectedBrands.length === 0 || 
-//       selectedBrands.includes(product.brand);
-//     const matchesPrice = product.price >= priceRange[0] && 
-//       product.price <= priceRange[1];
-//     return matchesCategory && matchesBrand && matchesPrice;
-//   });
-
-//   const sortedProducts = [...filteredProducts].sort((a, b) => {
-//     switch(sortBy) {
-//       case 'price-low-high': return a.price - b.price;
-//       case 'price-high-low': return b.price - a.price;
-//       case 'rating': return b.rating - a.rating;
-//       case 'popularity': return b.sold - a.sold;
-//       default: return 0;
-//     }
-//   });
-
-//   if (loading) return <div>Loading...</div>;
-//   if (error) return <div>Error: {error}</div>;
-
-//   return (
-//     <section className='mb-10'>
-//       {/* ... existing layout structure */}
-      
-//       <div className="flex ">
-//         <div className="w-1/4">
-//           {/* Categories Filter */}
-//           <div className="flex flex-col">
-//             <h3 className="font-semibold text-medium mb-3">Categories</h3>
-//             <div className="flex">
-//               <input 
-//                 type="checkbox" 
-//                 checked={selectedCategories.length === 0}
-//                 onChange={() => setSelectedCategories([])}
-//               />
-//               <p className="ml-2 text-medium">All</p>
-//             </div>
-//             {categories.map((item: Icategory) => (
-//               <div key={item._id} className="flex">
-//                 <input
-//                   type="checkbox"
-//                   checked={selectedCategories.includes(item._id)}
-//                   onChange={() => handleCategoryChange(item._id)}
-//                 />
-//                 <p className="ml-2 text-medium">{item.name}</p>
-//               </div>
-//             ))}
-//           </div>
-
-//           {/* Brands Filter */}
-//           <div className="flex flex-col mt-8">
-//             <h3 className="font-semibold text-medium mb-3">Brands</h3>
-//             <div className="flex">
-//               <input 
-//                 type="checkbox" 
-//                 checked={selectedBrands.length === 0}
-//                 onChange={() => setSelectedBrands([])}
-//               />
-//               <p className="ml-2 text-medium">All</p>
-//             </div>
-//             {brands.map((item: Icategory) => (
-//               <div key={item._id} className="flex">
-//                 <input
-//                   type="checkbox"
-//                   checked={selectedBrands.includes(item._id)}
-//                   onChange={() => handleBrandChange(item._id)}
-//                 />
-//                 <p className="ml-2 text-medium">{item.name}</p>
-//               </div>
-//             ))}
-//           </div>
-
-//           {/* Price Filter */}
-//           <div className="flex flex-col mt-8">
-//             <h3 className="font-semibold text-medium mb-3">Price</h3>
-//             <div className="flex flex-col md:flex-row">
-//               <p className="ml-2 text-medium">From:</p>
-//               <input
-//                 className="w-[60px] border border-gray-500 outline-none focus:border-black ml-2"
-//                 type="number"
-//                 onChange={(e) => handlePriceRange('min', Number(e.target.value))}
-//               />
-//             </div>
-//             <div className="flex flex-col md:flex-row mt-3">
-//               <p className="ml-2 text-medium">To:</p>
-//               <input
-//                 className="w-[60px] ml-2 md:ml-7 border border-gray-500 outline-none focus:border-black"
-//                 type="number"
-//                 onChange={(e) => handlePriceRange('max', Number(e.target.value))}
-//               />
-//             </div>
-//           </div>
-//         </div>
-
-//         {/* Products Grid */}
-//         <div className="flex flex-wrap col-span-3 gap-8 mx-auto">
-//           {sortedProducts.map((item: Iproduct) => (
-//             <div key={item.id} className="max-w-[270px]">
-//               <ProductItem product={item} />
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-
-//       {/* Sorting Dropdown */}
-//       <DropdownMenu>
-//         <DropdownMenuTrigger asChild>
-//           <Button variant="outline">Sort<ChevronDown className="ml-2 h-4 w-4" /></Button>
-//         </DropdownMenuTrigger>
-//         <DropdownMenuContent className="w-56" align="end">
-//           <DropdownMenuGroup>
-//             <DropdownMenuItem onClick={() => setSortBy('popularity')}>
-//               <ShoppingBasket />
-//               <span>Best sellers</span>
-//             </DropdownMenuItem>
-//             <DropdownMenuItem onClick={() => setSortBy('rating')}>
-//               <Star />
-//               <span>Highest rated</span>
-//             </DropdownMenuItem>
-//             <DropdownMenuItem onClick={() => setSortBy('price-low-high')}>
-//               <ArrowUpZA />
-//               <span>Price low to high</span>
-//             </DropdownMenuItem>
-//             <DropdownMenuItem onClick={() => setSortBy('price-high-low')}>
-//               <ArrowDownZA />
-//               <span>Price high to low</span>
-//             </DropdownMenuItem>
-//           </DropdownMenuGroup>
-//         </DropdownMenuContent>
-//       </DropdownMenu>
-//     </section>
-//   );
-// };
-
-// export default ProductsPage;
