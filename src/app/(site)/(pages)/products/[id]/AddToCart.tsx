@@ -19,6 +19,7 @@ const AddToCart = () => {
 
             if(response.status === "success" && color !== null) {
                 notify("تم إضافة المنتج إلى السلة بنجاح" , "success");
+                localStorage.removeItem("selectedColor");
             }
         } catch (error) {
             console.log("Error adding to cart:", error);

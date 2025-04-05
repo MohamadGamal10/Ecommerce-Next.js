@@ -13,7 +13,7 @@ const NewArrival = async() => {
     return (
         <section>
             <div className="container">
-                <div className="flex justify-between pt-17.5 px-4">
+                <div className="flex justify-between pt-17.5 ">
                     <div className="flex flex-col">
                         <span className="flex items-center gap-2.5 font-medium text-dark mb-1.5">
                             <svg

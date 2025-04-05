@@ -32,7 +32,7 @@ const SwiperBrands = ({ brands }: { brands: { data: Ibrand[] } }) => {
 
     return (
         <>
-            <div className="flex justify-between px-4">
+            <div className="flex justify-between">
                 <div>
                     <div className="flex ">
                         <span className='flex items-center gap-2.5 font-medium text-dark mb-1.5'>

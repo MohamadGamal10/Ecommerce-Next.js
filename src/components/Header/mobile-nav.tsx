@@ -1,8 +1,11 @@
+"use client";
 import { Menu } from "lucide-react"
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "../ui/sheet"
 import Link from "next/link"
+import useSearchHook from "@/hooks/useSearchHook";
 
 const MobileNav = () => {
+    const [search, handleChange] = useSearchHook();
     return (
         <Sheet>
             <SheetTrigger className="sm:hidden cursor-pointer">
@@ -18,6 +21,9 @@ const MobileNav = () => {
                         <input
                             type="text"
                             id="Search"
+                            name="Search"
+                            value={search}
+                            onChange={handleChange}
                             placeholder="I am shopping for..."
                             className="w-full p-5 rounded-md  focus:outline-none border-indigo-500 border-2 py-2.5 pe-10 shadow-xs sm:text-sm"
                         />
@@ -45,7 +51,7 @@ const MobileNav = () => {
                     </div>
 
                     <SheetClose asChild>
-                        <Link href="/signin">
+                        <Link href="/signin" className="mt-3">
                             <div className="flex items-center space-x-2  justify-center">
                                 <svg
                                     width="24"
@@ -80,9 +86,9 @@ const MobileNav = () => {
                     </SheetClose>
 
                     <SheetClose asChild>
-                        <Link href="/cart">
+                        <Link href="/cart" className="mt-3">
                             <div className="flex items-center justify-center mt- space-x-2">
-                                <div className="relative">
+                                <div className="relative mt-3 mr-3">
                                     <span className="bg-blue-800 absolute -top-2 -right-2  text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">0</span>
                                     <svg
                                         width="24"
@@ -114,7 +120,6 @@ const MobileNav = () => {
                                             fill="#3C50E0"
                                         />
                                     </svg>
-
                                 </div>
                                 <div className="flex flex-col ml-0.5">
                                     <p className="text-[13px] text-gray-500">

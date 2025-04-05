@@ -8,6 +8,7 @@ import { ChevronDown } from "lucide-react";
 // import { cookies } from "next/headers";
 import Logout from "./logout";
 import { getUserData } from "@/actions/user/getUserData";
+import TopSearch from "./TopSearch";
 // import { Iuser } from "@/types/user";
 // import { useAppDispatch } from "@/redux/hooks";
 // import { useSelector } from "react-redux";
@@ -53,7 +54,7 @@ const Header = async () => {
   //   return <div>Loading...</div>;
   // }
 
-  const user =  await getUserData();
+  const user = await getUserData();
   // console.log(user)
 
 
@@ -65,37 +66,7 @@ const Header = async () => {
             <h1 className="text-2xl text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-indigo-500   font-bold">Ecommerce</h1>
           </Link>
 
-          <div className="relative hidden sm:block md:w-[400px]">
-            <label htmlFor="Search" className="sr-only"> Search </label>
-
-            <input
-              type="text"
-              id="Search"
-              placeholder="I am shopping for..."
-              className="w-full p-5 rounded-md  focus:outline-none border-indigo-500 border-2 py-2.5 pe-10 shadow-xs sm:text-sm"
-            />
-
-            <span className="absolute inset-y-0 end-0 grid w-10 place-content-center">
-              <button type="button" className="text-gray-600 hover:text-gray-700">
-                <span className="sr-only">Search</span>
-
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="size-4"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                  />
-                </svg>
-              </button>
-            </span>
-          </div>
+          <TopSearch />
 
           <nav className="hidden sm:flex  items-center space-x-6">
             {
@@ -152,7 +123,7 @@ const Header = async () => {
                         Your Profile
                       </Link>
                     </MenuItem>
-                      <Logout />
+                    <Logout />
                   </MenuItems>
                 </Menu>
               ) : (
@@ -294,7 +265,7 @@ const Header = async () => {
 
             <Link href="/cart">
               <div className="flex items-center space-x-2">
-                <div className="relative">
+                <div className="relative mt-3 mr-3">
                   <span className="bg-blue-800 absolute -top-2 -right-2  text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">0</span>
                   <svg
                     width="24"

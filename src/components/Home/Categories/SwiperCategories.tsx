@@ -13,7 +13,7 @@ import { Icategory } from '@/types/category';
 const SwiperCategories = ({ categories }: { categories: { data: Icategory[] } }) => {
     const sliderRef = useRef<SwiperType | null>(null);
     // console.log(sliderRef);
-    console.log(categories)
+    // console.log(categories)
     const handlePrev = useCallback(() => {
         if (!sliderRef.current) return;
         sliderRef.current.slidePrev();
@@ -32,7 +32,7 @@ const SwiperCategories = ({ categories }: { categories: { data: Icategory[] } })
 
     return (
         <>
-            <div className="flex justify-between px-4">
+            <div className="flex justify-between">
                 <div>
                     <div className="flex ">
                         <span className='flex items-center gap-2.5 font-medium text-dark mb-1.5'>

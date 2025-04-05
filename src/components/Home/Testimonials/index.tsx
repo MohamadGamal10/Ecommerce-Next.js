@@ -8,32 +8,32 @@ import Image from 'next/image'
 import { useCallback, useEffect, useRef } from 'react';
 // import data from '../Categories/categoryData';
 import SingleItem from './SingleItem';
+import { Swiper as SwiperType } from 'swiper/types';
 
 const Testimonials = () => {
-
-    const sliderRef = useRef<any>(null);
-
-
+    const sliderRef = useRef<SwiperType | null>(null);
+    // console.log(sliderRef);
+    // console.log(brands)
     const handlePrev = useCallback(() => {
         if (!sliderRef.current) return;
-        sliderRef.current.swiper.slidePrev();
+        sliderRef.current.slidePrev();
     }, []);
 
     const handleNext = useCallback(() => {
         if (!sliderRef.current) return;
-        sliderRef.current.swiper.slideNext();
+        sliderRef.current.slideNext();
     }, []);
 
     useEffect(() => {
         if (sliderRef.current) {
-            sliderRef.current.swiper.init();
+            sliderRef.current.init();
         }
     }, []);
 
     return (
         <section>
             <div className="container">
-                <div className="flex justify-between pt-17.5 px-4">
+                <div className="flex justify-between pt-17.5 ">
                     <div className="flex flex-col">
                         <span className="flex items-center gap-2.5 font-medium text-dark mb-1.5">
                             <Image
@@ -87,7 +87,7 @@ const Testimonials = () => {
                 </div>
 
                 <Swiper
-                    ref={sliderRef}
+                    onSwiper={(swiper) => (sliderRef.current = swiper)}
                     slidesPerView={3}
                     breakpoints={{
                         // when window width is >= 640px
@@ -104,10 +104,9 @@ const Testimonials = () => {
                         },
                     }}
                     onSlideChange={() => console.log('slide change')}
-                    onSwiper={(swiper) => console.log(swiper)}
                 >
                     {
-                        Array.from({length: 6}).map((item, index) => (
+                        Array.from({ length: 6 }).map((item, index) => (
                             <SwiperSlide className='p-3' key={index}>
                                 <SingleItem />
                             </SwiperSlide>
