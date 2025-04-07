@@ -3,7 +3,7 @@ import SingleItem from "./SingleItem"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
-import { Iproduct } from "@/types/product"
+import { IProduct } from "@/types/product"
 // import { ToastContainer } from "react-toastify"
 
 const BestSeller = async() => {
@@ -27,7 +27,7 @@ const BestSeller = async() => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
                     {
-                        products.data.map((product: Iproduct) => (
+                        products.data.map((product: IProduct) => (
                             <SingleItem key={product.id} product={product} />
                         ))
                     }

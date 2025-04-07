@@ -9,6 +9,7 @@ import { ChevronDown } from "lucide-react";
 import Logout from "./logout";
 import { getUserData } from "@/actions/user/getUserData";
 import TopSearch from "./TopSearch";
+import { getCartData } from "@/actions/cart/getCartData";
 // import { Iuser } from "@/types/user";
 // import { useAppDispatch } from "@/redux/hooks";
 // import { useSelector } from "react-redux";
@@ -54,7 +55,11 @@ const Header = async () => {
   //   return <div>Loading...</div>;
   // }
 
-  const user = await getUserData();
+  const [user, cart] = await Promise.all([
+    getUserData(),
+    getCartData(),
+  ]);
+
   // console.log(user)
 
 
@@ -266,7 +271,7 @@ const Header = async () => {
             <Link href="/cart">
               <div className="flex items-center space-x-2">
                 <div className="relative mt-3 mr-3">
-                  <span className="bg-blue-800 absolute -top-2 -right-2  text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">0</span>
+                  <span className="bg-blue-800 absolute -top-2 -right-2  text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">{cart?.numOfCartItems || 0}</span>
                   <svg
                     width="24"
                     height="24"

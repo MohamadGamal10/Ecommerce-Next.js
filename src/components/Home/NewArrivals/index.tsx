@@ -2,7 +2,7 @@
 import ProductItem from "@/components/Common/ProductItem"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { Iproduct } from "@/types/product"
+import { IProduct } from "@/types/product"
 import Link from "next/link"
 
 const NewArrival = async() => {
@@ -46,7 +46,7 @@ const NewArrival = async() => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-10">
                     {
-                        products.data && products.data.map((item: Iproduct) => (
+                        products.data && products.data.map((item: IProduct) => (
                             <ProductItem key={item.id} product={item} />
                         ))
                     }

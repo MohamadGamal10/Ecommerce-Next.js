@@ -1,9 +1,9 @@
 "use server";
 
 
-const getProducts = async () => {
+const getProducts = async (query: string) => {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?${query}`);
 
         if (!res.ok) {
             throw new Error(`Failed to fetch products: ${res.status} ${res.statusText}`);

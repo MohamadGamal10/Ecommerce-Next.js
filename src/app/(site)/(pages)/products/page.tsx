@@ -1,10 +1,11 @@
 import ProductItem from "@/components/Common/ProductItem";
 // import { Icategory } from "@/types/category";
-import { Iproduct } from "@/types/product";
 // import Link from "next/link";
 import FilterComponent from "./_components/filterComponents";
 import SortProducts from "./_components/sortProducts";
 import TopCategories from "@/components/Common/TopCategories";
+import { IProduct } from "@/types/product";
+import getProducts from "@/actions/products/getProducts";
 
 // const buildQueryString = (searchParams: any) => {
 //   const params = new URLSearchParams();
@@ -34,33 +35,38 @@ import TopCategories from "@/components/Common/TopCategories";
 //   return params.toString();
 // };
 
-export default async function ProductsPage({ searchParams }: { searchParams: Record<string, string | string[]> }) {
-
+type Props = {
+  searchParams?: Record<string, string | string[]>;
+};
+export default async function ProductsPage({ searchParams }: { searchParams: Promise<Props> }) {
+  const resolvedSearchParams = await searchParams;
    const query = new URLSearchParams();
 
   // Handle cases where values might be arrays
-  Object.entries(searchParams).forEach(([key, value]) => {
+   Object.entries(resolvedSearchParams).forEach(([key, value]) => {
     if (Array.isArray(value)) {
       value.forEach((v) => query.append(key, v));
     } else {
-      query.append(key, value);
+      query.append(key, value.toString());
     }
   });
 
   const queryString = query.toString();
   console.log(queryString);
 
-  const productsUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?${queryString}`;
+  // const productsUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?${queryString}`;
+  // const productsUrl = await getProducts(queryString);
 
   
   // Fetch data in parallel
-  const [productsRes, categoriesRes, brandsRes] = await Promise.all([
-    fetch(productsUrl),
+  const [ categoriesRes, brandsRes] = await Promise.all([
+    // fetch(productsUrl),
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/categories`),
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/brands`)
   ]);
 
-  const products = await productsRes.json();
+  // const products = await productsRes.json();
+  const products = await getProducts(queryString);
   const categories = await categoriesRes.json();
   const brands = await brandsRes.json();
 
@@ -154,7 +160,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Rec
               
             } */}
             {
-                products.data && products.data.map((item: Iproduct) => (
+                products.data && products.data.map((item: IProduct) => (
                   <div key={item.id} className="max-w-[270px] ">
                     <ProductItem key={item.id} product={item} />
                   </div>

@@ -1,7 +1,7 @@
 import ProductItem from "@/components/Common/ProductItem";
-import { Iproduct } from "@/types/product";
+import { IProduct } from "@/types/product";
 
-const page = async ({ params }: { params: { id: string } }) => {
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
     const productsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?brand=${id}&limit=8`);
     const products = await productsRes.json();
@@ -12,7 +12,7 @@ const page = async ({ params }: { params: { id: string } }) => {
     return (
         <section className='my-10'>
             <div className="container">
-                <div className="flex flex-col"> 
+                <div className="flex flex-col">
                     <span className='flex items-center gap-2.5 font-medium text-dark mb-1.5'>
                         <svg
                             width="20"
@@ -59,7 +59,7 @@ const page = async ({ params }: { params: { id: string } }) => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-10">
                     {
-                        products.data && products.data.map((item: Iproduct) => (
+                        products.data && products.data.map((item: IProduct) => (
                             <ProductItem key={item.id} product={item} />
                         ))
                     }
@@ -69,4 +69,3 @@ const page = async ({ params }: { params: { id: string } }) => {
     )
 }
 
-export default page

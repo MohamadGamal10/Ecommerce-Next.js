@@ -1,10 +1,10 @@
 "use client"
 
 import useFavouriteHook from "@/hooks/useFavouriteHook";
-import { Iproduct } from "@/types/product";
+import { IProduct } from "@/types/product";
 
 
-const AddToWishlist = ({ product }: { product: Iproduct }) => {
+const AddToWishlist = ({ product }: { product: IProduct }) => {
     const [isFav, handleItemToWishList] = useFavouriteHook(product);
 
     return (

@@ -3,9 +3,9 @@ import TopCategories from '@/components/Common/TopCategories';
 import ProductSwiper from './ProductSwiper';
 import Reviews from '@/components/Common/Reviews';
 import ProductItem from '@/components/Common/ProductItem';
-import { Iproduct } from '@/types/product';
 import AddToCart from './AddToCart';
 import Colors from './Colors';
+import { IProduct } from '@/types/product';
 
 
 const ProductPage = async ({ params }: { params: Promise<{ id: string }> }) => {
@@ -103,7 +103,7 @@ const ProductPage = async ({ params }: { params: Promise<{ id: string }> }) => {
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 bg-white shadow-xl rounded-xl p-6">
 
           {
-            productLike.data && productLike.data.map((product: Iproduct) => (
+            productLike.data && productLike.data.map((product: IProduct) => (
               <ProductItem key={product.id} product={product} />
             ))
           }

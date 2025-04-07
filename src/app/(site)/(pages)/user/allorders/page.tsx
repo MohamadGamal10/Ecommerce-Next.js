@@ -24,7 +24,7 @@ console.log(Order)
           Orders
         </h1>
         <p className="text-lg ms-1 mt-2 font-medium  text-gray-500  capitalize drop-shadow-sm">
-          Number of orders: {numOfCartItems} 
+          Number of orders: {numOfCartItems || 0} 
         </p>
         <div className="mt-6">
           {

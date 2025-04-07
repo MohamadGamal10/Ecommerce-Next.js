@@ -3,7 +3,7 @@
 import { Ibrand } from "@/types/brand";
 import { Icategory } from "@/types/category";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function FilterComponent({ categories, brands }: { categories: { data: Icategory[] }, brands: { data: Ibrand[] } }) {
     const router = useRouter();
@@ -52,30 +52,52 @@ export default function FilterComponent({ categories, brands }: { categories: { 
         setPriceTo(e.target.value)
     }   
 
-    const updateURL = () => {
-        const params = new URLSearchParams();
+    // const updateURL = () => {
+    //     const params = new URLSearchParams();
 
+    //     if (categorySelected.length) {
+    //         categorySelected.forEach((id) => params.append("category[in][]", id));
+    //     }
+    //     if (brandSelected.length) {
+    //         brandSelected.forEach((id) => params.append("brand[in][]", id));
+    //     }
+    //     if (priceFrom > "0") {
+    //         params.append("price[gte]", priceFrom);
+    //     }
+    //     if (priceTo > "0") {
+    //         params.append("price[lte]", priceTo);
+    //     }
+
+    //     // Update the URL without a full reload
+    //     router.push(`/products?${params.toString()}`, { scroll: false });
+    // };
+
+    // useEffect(() => {
+    //     updateURL();
+    // }, [categorySelected, brandSelected, priceFrom, priceTo, updateURL]);
+
+    const updateURL = useCallback(() => {
+        const params = new URLSearchParams();
+    
         if (categorySelected.length) {
-            categorySelected.forEach((id) => params.append("category[in][]", id));
+          categorySelected.forEach((id) => params.append("category[in][]", id));
         }
         if (brandSelected.length) {
-            brandSelected.forEach((id) => params.append("brand[in][]", id));
+          brandSelected.forEach((id) => params.append("brand[in][]", id));
         }
         if (priceFrom > "0") {
-            params.append("price[gte]", priceFrom);
+          params.append("price[gte]", priceFrom);
         }
         if (priceTo > "0") {
-            params.append("price[lte]", priceTo);
+          params.append("price[lte]", priceTo);
         }
-
-        // Update the URL without a full reload
+    
         router.push(`/products?${params.toString()}`, { scroll: false });
-    };
-
-    useEffect(() => {
+      }, [categorySelected, brandSelected, priceFrom, priceTo, router]);
+    
+      useEffect(() => {
         updateURL();
-    }, [categorySelected, brandSelected, priceFrom, priceTo]);
-
+      }, [updateURL]);
 
     return (
         <div className="w-1/4">

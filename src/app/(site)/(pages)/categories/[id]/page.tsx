@@ -1,7 +1,7 @@
 import ProductItem from "@/components/Common/ProductItem";
-import { Iproduct } from "@/types/product";
+import { IProduct } from "@/types/product";
 
-const page = async ({ params }: { params: { id: string } }) => {
+const page = async ({ params }: { params: Promise<{ id: string }> }) => {
     const { id } = await params;
     const productsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?category=${id}&limit=8`);
     const products = await productsRes.json();
@@ -59,7 +59,7 @@ const page = async ({ params }: { params: { id: string } }) => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-10">
                     {
-                        products.data && products.data.map((item: Iproduct) => (
+                        products.data && products.data.map((item: IProduct) => (
                             <ProductItem key={item.id} product={item} />
                         ))
                     }

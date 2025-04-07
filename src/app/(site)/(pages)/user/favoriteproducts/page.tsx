@@ -1,8 +1,8 @@
 // import ProductItem from "@/components/Common/ProductItem"
 
 import { getWishlistsAction } from "@/actions/wishlist/getWishlistsAction"
-import { Iproduct } from "@/types/product";
 import SingleItemFav from "../_components/SingleItemFav";
+import { IProduct } from "@/types/product";
 
 const page = async () => {
   const FavProducts = await getWishlistsAction();
@@ -15,7 +15,7 @@ const page = async () => {
         </h1>
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {
-            FavProducts?.data.length ? FavProducts?.data.map((product: Iproduct ) => (
+            FavProducts?.data.length ? FavProducts?.data.map((product: IProduct ) => (
               <div key={product.id} className="max-w-[270px] mx-auto bg-white shadow-xl rounded-md p-4">
                 <SingleItemFav product={product} />
               </div>

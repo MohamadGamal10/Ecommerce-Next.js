@@ -1,6 +1,6 @@
-import { Iproduct } from '@/types/product'
+import { IProduct } from '@/types/product'
 
-const Rating = ({ product }: { product: Iproduct }) => {
+const Rating = ({ product }: { product: IProduct }) => {
     const fullStars = Math.floor(product.ratingsAverage);
     const emptyStars = 5 - fullStars;
 

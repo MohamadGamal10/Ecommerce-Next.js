@@ -2,11 +2,12 @@
 
 import { addToCart } from "@/actions/cart/AddToCartActions";
 import { notify } from "@/hooks/useNotifaction";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 
 const AddToCart = () => {
     const { id }: { id: string } = useParams();
+    const router = useRouter();
     const handleClick = async() => {
         try {
             const color = localStorage.getItem("selectedColor");
@@ -19,6 +20,7 @@ const AddToCart = () => {
 
             if(response.status === "success" && color !== null) {
                 notify("تم إضافة المنتج إلى السلة بنجاح" , "success");
+                router.refresh();
                 localStorage.removeItem("selectedColor");
             }
         } catch (error) {

@@ -1,9 +1,32 @@
+"use client"
+
+import { updateCart } from '@/actions/cart/updateCart'
 import { ICartItem } from '@/types/cart'
 import { Trash2Icon } from 'lucide-react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 const CartItem = ({ item }: {item: ICartItem}) => {
+  const router = useRouter();
     console.log(item)
+
+    const [itemCount, setItemCount] = useState<number>(item?.count || 1);
+    // const [price, setPrice] = useState<number>(item.price || 0);
+    // const [totalPrice, setTotalPrice] = useState<number>(item.price || 0);
+
+    const handleIncrement = async(id: string) => {
+        const response = await updateCart(id, itemCount);
+        router.refresh()
+        console.log(response.data)
+    };
+
+    // useEffect(() => {
+    // const totalPrice = price.red;
+    // setTotalPrice(totalPrice);
+    // }, [price, itemCount, item.price]);
+ 
+
     return (
         // <div className="w-full my-2 px-2 flex items-start">
         //     <Image
@@ -128,8 +151,13 @@ const CartItem = ({ item }: {item: ICartItem}) => {
         <input
           className="text-center border rounded-lg w-16 h-10 focus:ring-2 focus:ring-gray-300 outline-none"
           type="number"
+          value={itemCount}
+          onChange={(e) => setItemCount(Number(e.target.value))}
+          min={1}
         />
-        <button className="bg-black cursor-pointer text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">
+        <button
+         onClick={() => handleIncrement(item._id)}
+          className="bg-black cursor-pointer text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">
           تطبيق
         </button>
       </div>

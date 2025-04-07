@@ -1,12 +1,12 @@
 // import ProductModal from '@/components/Common/ProductModal'
 import Rating from '@/components/Common/Rating'
 import AddtoFavorite from '@/components/Home/BestSeller/AddtoFavorite'
-import { Iproduct } from '@/types/product'
+import { IProduct } from '@/types/product'
 import Image from 'next/image'
 import Link from 'next/link'
 
 
-const SingleItemFav = ({ product }: { product: Iproduct }) => {
+const SingleItemFav = ({ product }: { product: IProduct }) => {
 
     return (
         <div className="group flex mx-auto w-full">

@@ -1,14 +1,14 @@
 
 import Image from 'next/image'
-import { Iproduct } from '@/types/product';
 // import ProductModal from './ProductModal';
 import Rating from './Rating';
 // import AddToCartButton from './AddToCartButton';
 import Link from 'next/link';
 import AddToWishlist from './AddToWishlist';
+import { IProduct } from '@/types/product';
 
 
-const ProductItem = ({ product }: { product: Iproduct }) => {
+const ProductItem = ({ product }: { product: IProduct }) => {
 
     return (
         <div className="group flex mx-auto w-full">

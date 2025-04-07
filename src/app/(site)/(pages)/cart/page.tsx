@@ -5,6 +5,10 @@ import { ICartItem } from "@/types/cart";
 const Page = async () => {
   const Cart = await getCartData();
   const CartData = Cart?.data;
+  // const totalCartPrice = CartData?.products.reduce((acc: number, item: ICartItem) => {
+  //   return acc + (item.price * item.count);
+  //   // return acc + (item.price * item.quantity);
+  // }, 0);
   return (
     <section className='py-10 bg-gray-100'>
       <div className="container">
@@ -43,7 +47,8 @@ const Page = async () => {
 
                 {/* Price Section */}
                 <div className="text-center text-lg font-semibold border-t border-b py-4 mb-4">
-                  <span className="text-gray-700">500
+                  <span className="text-gray-700">
+                    {CartData.totalCartPrice} جنيه
                     {/* {totalCartPriceAfterDiscount >= 1
           ? `${totalCartPriceAfterDiscount} جنيه ... بدلا من ${totalCartPrice} جنيه`
           : `${totalCartPrice} جنيه`} */}

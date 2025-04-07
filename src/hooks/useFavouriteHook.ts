@@ -4,19 +4,19 @@ import { addToWishlistAction } from "@/actions/wishlist/addToWishlistAction";
 import { getWishlistsAction } from "@/actions/wishlist/getWishlistsAction";
 import { removeWishlistAction } from "@/actions/wishlist/removeWishlistAction";
 import { notify } from "@/hooks/useNotifaction";
-import { Iproduct } from "@/types/product";
+import { IProduct } from "@/types/product";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const useFavouriteHook = (product: Iproduct) => {
+const useFavouriteHook = (product: IProduct) => {
   const router = useRouter();
   const [isFav, setIsFav] = useState(false);
 
   useEffect(() => {
     const fetchWishlist = async () => {
       try {
-        const { data } = await getWishlistsAction();
-        setIsFav(data.some((item: Iproduct) => item.id === product.id));
+        const  data  = await getWishlistsAction();
+        setIsFav(data && data.data.some((item: IProduct) => item.id === product.id));
       } catch (error) {
         console.error("Error fetching wishlist:", error);
       }
