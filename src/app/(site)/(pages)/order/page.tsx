@@ -10,6 +10,7 @@ import { getUserData } from "@/actions/user/getUserData";
 import { notify } from "@/hooks/useNotifaction";
 import { getCartData } from "@/actions/cart/getCartData";
 import { useRouter } from "next/navigation";
+import { createVisaOrder } from "@/actions/order/createVisaOrder";
 
 const Page = () => {
     const router = useRouter();
@@ -62,7 +63,7 @@ const Page = () => {
 
     const handleChooseAddress = (alias: string) => {
         setChoosedAddress(alias);
-        console.log(alias);
+        // console.log(alias);
     }
 
     const handleOrder = async () => {
@@ -71,26 +72,49 @@ const Page = () => {
         //     address: address[0]
         // }
         // console.log(data);
-        if(selectedOption === ""){
-           notify("من فضلك قم باختيار طريقة الدفع", "warning")
-           return;
+        if (selectedOption === "") {
+            notify("من فضلك قم باختيار طريقة الدفع", "warning")
+            return;
         }
 
-        if(choosedAddress === ""){
-           notify("من فضلك قم باختيار عنوان", "warning")
-           return;
+        if (choosedAddress === "") {
+            notify("من فضلك قم باختيار عنوان", "warning")
+            return;
         }
+
+        // if (selectedOption === "visa") {
+        //     const response = await createVisaOrder(cartId, formData);
+        //     console.log(response)
+        //     if (response && response.status === "success") {
+        //         if (response.session.url) {
+        //             window.open(response.session.url);
+        //         }
+        //     } else {
+        //         notify("فشل فى اكمال الطلب من فضلك حاول مره اخرى", "warning");
+        //     }
+
+        // }
+
 
         if (selectedOption === "cash") {
             const response = await createCashOrder(cartId, formData)
             if (response && response.status === "success") {
                 notify("تم انشاء الطلب بنجاح", "success");
                 router.push("/user/allorders");
-            }else{
+            } else {
                 notify("لم يتم انشاء الطلب", "error");
             }
+        } else if (selectedOption === "visa") {
+            const response = await createVisaOrder(cartId);
+            console.log(response)
+            if (response && response.status === "success") {
+                if (response.session.url) {
+                    window.open(response.session.url);
+                }
+            } else {
+                notify("فشل فى اكمال الطلب من فضلك حاول مره اخرى", "warning");
+            }
         }
-
     }
 
     return (
@@ -174,7 +198,7 @@ const Page = () => {
                                             return (
                                                 <MenuItem key={item._id} >
                                                     <span
-                                                    onClick={() => handleChooseAddress(item.alias)}
+                                                        onClick={() => handleChooseAddress(item.alias)}
                                                         className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
                                                     >
                                                         {item.alias}

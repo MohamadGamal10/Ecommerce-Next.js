@@ -8,6 +8,7 @@ import { IProduct } from "@/types/product";
 import getProducts from "@/actions/products/getProducts";
 import getCategories from "@/actions/categories/getCategories";
 import getBrands from "@/actions/brands/getBrands";
+// import NotFound from "@/app/not-found";
 
 // const buildQueryString = (searchParams: any) => {
 //   const params = new URLSearchParams();
@@ -76,6 +77,9 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
     await getBrands(),
   ])
 
+  // if(!products || !categories || !brands) {
+  //   NotFound();
+  // }
 
   // await new Promise((resolve) => setTimeout(() => resolve(true), 3000));
 
@@ -167,13 +171,13 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
               )
               
             } */}
-              {
-                products.data && products.data.map((item: IProduct) => (
-                  <div key={item.id} className="max-w-[270px] ">
-                    <ProductItem key={item.id} product={item} />
-                  </div>
-                ))
-              }
+            {
+              products.data && products.data.map((item: IProduct) => (
+                <div key={item.id} className="max-w-[270px] ">
+                  <ProductItem key={item.id} product={item} />
+                </div>
+              ))
+            }
           </div>
         </div>
       </div>

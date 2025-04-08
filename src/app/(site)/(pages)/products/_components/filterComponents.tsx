@@ -114,7 +114,7 @@ export default function FilterComponent({ categories, brands }: { categories: { 
                     <p className="ml-2 text-medium">All</p>
                 </div>
                 {
-                    categories.data && categories.data.map((item: Icategory) => (
+                    categories && categories.data.map((item: Icategory) => (
                         <div key={item._id} className="flex">
                             <input type="checkbox"
                                 checked={categorySelected.includes(item._id)}
@@ -138,7 +138,7 @@ export default function FilterComponent({ categories, brands }: { categories: { 
                     <p className="ml-2 text-medium">All</p>
                 </div>
                 {
-                    brands.data && brands.data.map((item: Icategory) => (
+                    brands && brands.data.map((item: Icategory) => (
                         <div key={item._id} className="flex w-full ">
                             <input type="checkbox"
                                 checked={brandSelected.includes(item._id)}

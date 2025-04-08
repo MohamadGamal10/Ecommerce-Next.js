@@ -8,7 +8,7 @@ const TopCategories = async({color="bg-gray-100"}: {color: string}) => {
     <div className={`flex  ${color} py-4 mb-10`}>
     <div className="container">
       {
-        categories.data && categories.data.map((category: Icategory) => (
+        categories && categories.data.map((category: Icategory) => (
           <Link key={category._id} href={`/categories/${category._id}`} className="sm:mr-6 mr-2 font-small text-gray-700 hover:text-blue-600 duration-300 ease-out cap">{category.name}</Link>
         ))
       }

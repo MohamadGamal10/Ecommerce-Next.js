@@ -1,15 +1,22 @@
 
+import NotFound from "@/app/not-found"
 import ProductItem from "@/components/Common/ProductItem"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { IProduct } from "@/types/product"
 import Link from "next/link"
 
-const NewArrival = async() => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?limit=8`,{
-        next: {revalidate: 3600}
-    });
-    const products = await res.json();
+const NewArrival = async () => {
+    let products;
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?limit=8`, {
+            next: { revalidate: 3600 }
+        });
+        products = await res.json();
+    } catch (error) {
+        console.log(error)
+        NotFound();
+    }
     // console.log(products)
 
     return (
@@ -48,7 +55,7 @@ const NewArrival = async() => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-10">
                     {
-                        products.data && products.data.map((item: IProduct) => (
+                        products && products.data.map((item: IProduct) => (
                             <ProductItem key={item.id} product={item} />
                         ))
                     }
