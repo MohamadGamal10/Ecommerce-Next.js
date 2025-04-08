@@ -3,7 +3,9 @@
 const getCategories = async () => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/v1/categories`
+      `${process.env.NEXT_PUBLIC_API_URL}/api/v1/categories`,{
+        next: { revalidate: 3600 }
+      }
     );
     const products = await res.json();
 

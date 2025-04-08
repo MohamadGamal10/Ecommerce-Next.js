@@ -7,7 +7,9 @@ import { IProduct } from "@/types/product"
 // import { ToastContainer } from "react-toastify"
 
 const BestSeller = async() => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?limit=6`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?limit=6`,{
+        next: {revalidate:3600}
+    })
     const products = await res.json()
     return (
         <section className="pt-17.5">

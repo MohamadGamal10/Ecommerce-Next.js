@@ -8,8 +8,7 @@ import AddToWishlist from './AddToWishlist';
 import { IProduct } from '@/types/product';
 
 
-const ProductItem = ({ product }: { product: IProduct }) => {
-
+const ProductItem = async({ product }: { product: IProduct }) => {
     return (
         <div className="group flex mx-auto w-full">
             <div className="flex flex-col w-full ">
@@ -47,8 +46,8 @@ md:opacity-0 md:translate-y-4 md:transition-all md:duration-300 md:ease-in-out m
                             </svg>
                         </Link>
 
-                        <AddToWishlist product={product} />
-                        
+                        <AddToWishlist  product={product} />
+
                     </div>
                 </div>
                 <div className="flex flex-col space-y-2 mt-3">

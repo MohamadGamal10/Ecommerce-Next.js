@@ -6,6 +6,8 @@ import SortProducts from "./_components/sortProducts";
 import TopCategories from "@/components/Common/TopCategories";
 import { IProduct } from "@/types/product";
 import getProducts from "@/actions/products/getProducts";
+import getCategories from "@/actions/categories/getCategories";
+import getBrands from "@/actions/brands/getBrands";
 
 // const buildQueryString = (searchParams: any) => {
 //   const params = new URLSearchParams();
@@ -40,10 +42,10 @@ type Props = {
 };
 export default async function ProductsPage({ searchParams }: { searchParams: Promise<Props> }) {
   const resolvedSearchParams = await searchParams;
-   const query = new URLSearchParams();
+  const query = new URLSearchParams();
 
   // Handle cases where values might be arrays
-   Object.entries(resolvedSearchParams).forEach(([key, value]) => {
+  Object.entries(resolvedSearchParams).forEach(([key, value]) => {
     if (Array.isArray(value)) {
       value.forEach((v) => query.append(key, v));
     } else {
@@ -57,24 +59,30 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
   // const productsUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?${queryString}`;
   // const productsUrl = await getProducts(queryString);
 
-  
+
   // Fetch data in parallel
-  const [ categoriesRes, brandsRes] = await Promise.all([
-    // fetch(productsUrl),
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/categories`),
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/brands`)
-  ]);
+  // const [ categoriesRes, brandsRes] = await Promise.all([
+  //   // fetch(productsUrl),
+  //   fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/categories`),
+  //   fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/brands`)
+  // ]);
 
   // const products = await productsRes.json();
-  const products = await getProducts(queryString);
-  const categories = await categoriesRes.json();
-  const brands = await brandsRes.json();
 
+
+  const [products, categories, brands] = await Promise.all([
+    await getProducts(queryString),
+    await getCategories(),
+    await getBrands(),
+  ])
+
+
+  // await new Promise((resolve) => setTimeout(() => resolve(true), 3000));
 
 
   return (
     <section className='mb-10'>
-     <TopCategories color="bg-gray-100" />
+      <TopCategories color="bg-gray-100" />
       <div className="container">
 
         <div>
@@ -129,13 +137,13 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
           </div>
         </div>
         <div className="grid grid-cols-4  gap-8 mt-10">
-       
-        <FilterComponent
+
+          <FilterComponent
             categories={categories}
             brands={brands}
-            // searchParams={searchParams}
+          // searchParams={searchParams}
           />
-       {/* <FilterComponent categories={categories} brands={brands} /> */}
+          {/* <FilterComponent categories={categories} brands={brands} /> */}
           <div className="flex flex-wrap col-span-3 gap-8 mx-auto" >
             {/* {
               categoryId ? (
@@ -159,13 +167,13 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
               )
               
             } */}
-            {
+              {
                 products.data && products.data.map((item: IProduct) => (
                   <div key={item.id} className="max-w-[270px] ">
                     <ProductItem key={item.id} product={item} />
                   </div>
-              ))
-            }
+                ))
+              }
           </div>
         </div>
       </div>

@@ -3,7 +3,11 @@
 
 const getProducts = async (query: string) => {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?${query}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?${query}`,
+            {
+                next: {revalidate: 3600}
+            }
+        );
 
         if (!res.ok) {
             throw new Error(`Failed to fetch products: ${res.status} ${res.statusText}`);

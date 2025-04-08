@@ -22,6 +22,7 @@ const useFavouriteHook = (product: IProduct) => {
       }
     };
     fetchWishlist();
+ 
   }, [product.id]);
 
   const handleItemToWishList = async() => {

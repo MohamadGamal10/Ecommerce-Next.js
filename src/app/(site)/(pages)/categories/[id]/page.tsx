@@ -3,12 +3,16 @@ import { IProduct } from "@/types/product";
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
     const { id } = await params;
-    const productsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?category=${id}&limit=8`);
+    const productsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?category=${id}&limit=8`,{
+        next: {revalidate: 3600}
+    });
     const products = await productsRes.json();
 
-    const categoriesRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/categories/${id}`);
+    const categoriesRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/categories/${id}`,{
+        next: {revalidate: 3600}
+    });
     const category = await categoriesRes.json();
-    console.log(category)
+    // console.log(category)
     return (
         <section className='my-10'>
             <div className="container">

@@ -1,3 +1,4 @@
+import getBrands from '@/actions/brands/getBrands';
 import SingleItem from '@/components/Home/Categories/SingleItem'
 import { Icategory } from '@/types/category'
 import React from 'react'
@@ -5,8 +6,7 @@ import React from 'react'
 const page = async() => {
     let categories = {data: []};
      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/brands`)
-         categories = await res.json();
+         categories = await getBrands();
      } catch (error) {
         console.log(error)
      }

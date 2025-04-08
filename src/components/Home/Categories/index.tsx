@@ -1,9 +1,12 @@
+import getCategories from '@/actions/categories/getCategories';
 import SwiperCategories from './SwiperCategories';
 
-const Categories = async() => {
+const Categories = async () => {
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/categories?limit=5`)
-    const categories = await res.json()
+    // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/categories?limit=5`, {
+    //     next: { revalidate: 3600 }
+    // })
+    const categories = await getCategories();
 
     return (
         <section className="container pt-17.5">

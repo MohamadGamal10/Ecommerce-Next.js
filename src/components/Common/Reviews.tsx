@@ -1,11 +1,11 @@
 "use client";
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Rating } from 'react-simple-star-rating'
 import { useParams, useRouter } from 'next/navigation';
-import { getUserData } from '@/actions/user/getUserData';
+// import { getUserData } from '@/actions/user/getUserData';
 import { createReview } from '@/actions/review/createReview';
 import { notify } from '@/hooks/useNotifaction';
-import { getReviews } from '@/actions/review/getReviews';
+// import { getReviews } from '@/actions/review/getReviews';
 import { Pencil, Trash2 } from 'lucide-react';
 import { IReview } from '@/types/review';
 import {
@@ -22,36 +22,43 @@ import {
 import { Button } from "@/components/ui/button"
 import { updateReview } from '@/actions/review/updateReview';
 import { deleteReview } from '@/actions/review/deleteReview';
-export default function Reviews({ rating, quantity }: { rating: number, quantity: number }) {
+import { Iuser } from '@/types/user';
+export default function Reviews({ Userdata, reviewsData, rating, quantity }: { Userdata: Iuser, reviewsData: { data: IReview[] }, rating: number, quantity: number }) {
   const { id } = useParams<{ id: string }>();
   const router = useRouter()
   const [ratingValue, setRatingValue] = useState(0);
   const [ratingText, setRatingText] = useState("");
   const [ratingTextEdit, setRatingTextEdit] = useState("");
-  const [userId, setUserId] = useState("");
-  const [userName, setUserName] = useState("");
-  const [reviews, setReviews] = useState<IReview[]>([]);
-  const [done, setDone] = useState(false);
+  // const [userId, setUserId] = useState(Userdata?.data._id);
+  // const [userName, setUserName] = useState(Userdata?.data.name);
+  // const [reviews, setReviews] = useState<IReview[]>([]);
+  // const [done, setDone] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [openModalD, setOpenModalD] = useState(false);
 
+  const userId = Userdata?.data._id;
+  const userName = Userdata?.data.name;
+  const reviews = reviewsData?.data;
+  console.log(reviews)
 
-  useEffect(() => {
-    const get = async () => {
-      const reviews = await getReviews(id);
-      setReviews(reviews?.data)
-    }
-    get();
-  }, [id, done])
+  // useEffect(() => {
+  //   const get = async () => {
+  //     const reviews = await getReviews(id);
+  //     setReviews(reviews?.data)
+  //   }
+  //   get();
+  // }, [id, done])
 
-  useEffect(() => {
-    const get = async () => {
-      const data = await getUserData();
-      setUserId(data.data._id)
-      setUserName(data.data.name)
-    }
-    get();
-  }, [])
+  // useEffect(() => {
+  //   const get = async () => {
+  //     const data = await getUserData();
+  //     if(data && data.data){
+  //       setUserId(data.data._id)
+  //     setUserName(data.data.name)
+  //     }
+  //   }
+  //   get();
+  // }, [])
 
   const handleRating = (rate: number) => {
     setRatingValue(rate)
@@ -70,7 +77,7 @@ export default function Reviews({ rating, quantity }: { rating: number, quantity
     console.log(review)
     if (review?.data) {
       notify("تم إضافة التقييم بنجاح", "success");
-      setDone(true)
+      // setDone(true)
       router.refresh()
       setRatingValue(0)
       setRatingText("")
@@ -92,7 +99,7 @@ export default function Reviews({ rating, quantity }: { rating: number, quantity
     console.log(review)
     if (review?.data) {
       notify("تم تعديل التقييم بنجاح", "success");
-      setDone(true)
+      // setDone(true)
       router.refresh()
       setOpenModal(false)
       setRatingValue(0)
@@ -110,7 +117,7 @@ export default function Reviews({ rating, quantity }: { rating: number, quantity
     const review = await deleteReview(id);
     if (review === undefined) {
       notify("تم حذف التقييم بنجاح", "success");
-      setDone(true)
+      // setDone(true)
       window.location.reload()
       setOpenModalD(false)
     } else {

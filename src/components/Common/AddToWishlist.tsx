@@ -4,7 +4,7 @@ import useFavouriteHook from "@/hooks/useFavouriteHook";
 import { IProduct } from "@/types/product";
 
 
-const AddToWishlist = ({ product }: { product: IProduct }) => {
+const AddToWishlist = ({ product }: { product: IProduct}) => {
     const [isFav, handleItemToWishList] = useFavouriteHook(product);
 
     return (

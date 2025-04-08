@@ -36,7 +36,7 @@ export default async function RootLayout({
   // const token = Cookie.get('token')?.value;
   // console.log(token)
   return (
-    <html lang="en">
+    <html lang="en" >
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

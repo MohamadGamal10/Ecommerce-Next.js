@@ -1,9 +1,10 @@
+import getBrands from '@/actions/brands/getBrands';
 import SwiperBrands from './SwiperBrands';
 
 const Brands = async() => {
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/brands?limit=5`)
-    const brands = await res.json()
+    // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/brands?limit=5`)
+    const brands = await getBrands()
 
     return (
         <section className="container pt-17.5">

@@ -35,7 +35,7 @@ const Layout = async({ children }: { children: ReactNode }) => {
         <div className="grid grid-cols-1 md:grid-cols-4  gap-4">
           <div className='md:col-span-3 order-last md:order-first'>
             {children}
-          </div>
+          </div>       
           <SideBar />
         </div>
       </div>

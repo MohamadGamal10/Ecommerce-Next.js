@@ -28,7 +28,6 @@ const Page = async() => {
           {/* <div className="absolute flex right-4 top-4 border-2 p-2 rounded-2xl border-blue-500 cursor-pointer"></div> */}
           
           
-          
           <EditModal user={user} />
           <div className="flex text-lg font-semibold">
             <span className="text-gray-600">Name:</span>

@@ -305,11 +305,11 @@ const Header = async () => {
 
                 </div>
                 <div className="flex flex-col ml-0.5">
-                  <p className="text-[13px] text-gray-500">
+                  <p className="text-[13px] text-center text-gray-500">
                     Cart
                   </p>
                   <p className="font-medium text-sm text-center text-black">
-                    $0
+                    ${cart?.data.totalCartPrice || 0}
                   </p>
                 </div>
               </div>

@@ -15,6 +15,7 @@ export async function getUserData() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
+        next: { revalidate: 3600 },
       }
     );
  
