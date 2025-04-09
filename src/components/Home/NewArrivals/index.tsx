@@ -1,5 +1,4 @@
 
-import NotFound from "@/app/not-found"
 import ProductItem from "@/components/Common/ProductItem"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -15,7 +14,6 @@ const NewArrival = async () => {
         products = await res.json();
     } catch (error) {
         console.log(error)
-        NotFound();
     }
     // console.log(products)
 

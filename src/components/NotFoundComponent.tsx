@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-const Error = () => {
+const NotFoundComponent = () => {
   return (
     <>
       <section className="overflow-hidden py-20 bg-gray-2">
@@ -53,4 +53,4 @@ const Error = () => {
   );
 };
 
-export default Error;
+export default NotFoundComponent;

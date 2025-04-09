@@ -138,7 +138,7 @@ const SwiperCategories = ({ categories }: { categories: { data: Icategory[] } })
                 onSlideChange={() => console.log('slide change')}
             >
                 {
-                    categories.data && categories.data.map((item: Icategory) => (
+                    categories && categories.data.map((item: Icategory) => (
                         <SwiperSlide className='p-3' key={item._id}>
                             <SingleItem item={item} />
                         </SwiperSlide>

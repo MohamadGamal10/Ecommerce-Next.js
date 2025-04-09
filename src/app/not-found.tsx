@@ -1,7 +1,7 @@
-import Error from '@/components/Error'
+import NotFoundComponent from '@/components/NotFoundComponent'
 
 export default function NotFound() {
   return (
-    <Error />
+    <NotFoundComponent />
   )
 }

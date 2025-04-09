@@ -8,7 +8,6 @@ import Colors from './Colors';
 import { IProduct } from '@/types/product';
 import { getUserData } from '@/actions/user/getUserData';
 import { getReviews } from '@/actions/review/getReviews';
-import { notFound } from 'next/navigation';
 
 
 const ProductPage = async ({ params }: { params: Promise<{ id: string }> }) => {
@@ -55,7 +54,6 @@ const ProductPage = async ({ params }: { params: Promise<{ id: string }> }) => {
     product = productData.data;
   } catch (error) {
     console.error('Error fetching product:', error);
-    return notFound();
   }
 
   // Fetch related data

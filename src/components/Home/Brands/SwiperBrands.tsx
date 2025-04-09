@@ -138,7 +138,7 @@ const SwiperBrands = ({ brands }: { brands: { data: Ibrand[] } }) => {
                 onSlideChange={() => console.log('slide change')}
             >
                 {
-                    brands.data && brands.data.map((item: Ibrand) => (
+                    brands && brands.data.map((item: Ibrand) => (
                         <SwiperSlide className='p-3' key={item._id}>
                             <SingleItem item={item} />
                         </SwiperSlide>

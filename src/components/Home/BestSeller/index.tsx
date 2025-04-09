@@ -7,10 +7,23 @@ import { IProduct } from "@/types/product"
 // import { ToastContainer } from "react-toastify"
 
 const BestSeller = async() => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?limit=6`,{
-        next: {revalidate:3600}
-    })
-    const products = await res.json()
+    // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?limit=6`,{
+    //     next: {revalidate:3600}
+    // })
+    // const products = await res.json()
+
+
+       let products;
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?limit=6`, {
+                next: { revalidate: 3600 }
+            });
+            products = await res.json();
+        } catch (error) {
+            console.log(error)
+            // NotFound();
+        }
+
     return (
         <section className="pt-17.5">
             <div className="container">
@@ -29,16 +42,16 @@ const BestSeller = async() => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
                     {
-                        products.data.map((product: IProduct) => (
+                        products && products.data.map((product: IProduct) => (
                             <SingleItem key={product.id} product={product} />
                         ))
                     }
                 </div>
 
                 <div className="flex text-center">
-                <Link href={"/products"} className={cn(buttonVariants({ variant: "default" }), "px-12 py-6 mt-15 mx-auto ease-out duration-200 bg-gray-100 border-1 border-gray-300 text-black hover:bg-[black] hover:text-white")} >
-                    View All
-                </Link>
+                    <Link href={"/products"} className={cn(buttonVariants({ variant: "default" }), "px-12 py-6 mt-15 mx-auto ease-out duration-200 bg-gray-100 border-1 border-gray-300 text-black hover:bg-[black] hover:text-white")} >
+                        View All
+                    </Link>
                 </div>
             </div>
         </section >
