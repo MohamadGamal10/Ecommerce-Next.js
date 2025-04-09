@@ -68,7 +68,7 @@ const Header = async () => {
       <div className="container">
         <div className="flex items-center justify-between py-5  ">
           <Link href="/">
-            <h1 className="text-2xl text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-indigo-500   font-bold">Ecommerce</h1>
+            <h1 className="text-2xl text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-indigo-500 uppercase  font-bold">Shopnetic</h1>
           </Link>
 
           <TopSearch />

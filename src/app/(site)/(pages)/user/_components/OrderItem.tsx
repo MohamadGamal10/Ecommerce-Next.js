@@ -19,7 +19,7 @@ const OrderItem = ({ cart }: { cart: IOrder }) => {
     const isPaid = cart?.isPaid
     const paymentMethodType = cart?.paymentMethodType
     const totalOrderPrice = cart?.totalOrderPrice
-    console.log(cart)
+    // console.log(cart)
     return (
         // <div className='grid grid-cols-1 sm:grid-cols-3 gap-4'>
         //     <Image className='my-auto bg-gray-100 w-full p-12' src={`${process.env.NEXT_PUBLIC_API_URL}/products/${cart.product.imageCover}`} width={250} height={250} alt="product" />

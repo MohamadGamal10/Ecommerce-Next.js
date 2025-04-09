@@ -12,7 +12,7 @@ const page = async () => {
   // const CartData = Cart?.data || [];
   const numOfCartItems = Order?.results || 0;
   // const createdAt = Cart?.data.createdAt || 0;
-  console.log(Order)
+  // console.log(Order)
 
   return (
     <>

@@ -55,7 +55,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
   });
 
   const queryString = query.toString();
-  console.log(queryString);
+  // console.log(queryString);
 
   // const productsUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?${queryString}`;
   // const productsUrl = await getProducts(queryString);

@@ -11,17 +11,17 @@ import { useState } from 'react'
 
 const CartItem = ({ item }: { item: ICartItem }) => {
   const router = useRouter();
-  console.log(item)
+  // console.log(item)
 
   const [itemCount, setItemCount] = useState<number>(item?.count || 1);
   // const [price, setPrice] = useState<number>(item.price || 0);
   // const [totalPrice, setTotalPrice] = useState<number>(item.price || 0);
 
   const handleIncrement = async (id: string) => {
-    const response = await updateCart(id, itemCount);
+    await updateCart(id, itemCount);
     router.refresh()
     notify("تم تحديث السلة بنجاح", "success");
-    console.log(response.data)
+    // console.log(response.data)
   };
 
   // useEffect(() => {

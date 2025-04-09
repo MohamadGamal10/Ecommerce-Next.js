@@ -9,7 +9,7 @@ const useSearchHook = () => {
   const path = usePathname();
   const [search, setSearch] = useState(searchParams.get("keyword") || "");
 
-  console.log(path);
+  // console.log(path);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -24,7 +24,7 @@ const useSearchHook = () => {
     const delayDebounce = setTimeout(() => {
       const params = new URLSearchParams(searchParams);
 
-      console.log(searchParams.get("keyword"));
+      // console.log(searchParams.get("keyword"));
 
       // if (search === "" &&  path.includes("products")) {
       //   params.delete("keyword");

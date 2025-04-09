@@ -54,7 +54,7 @@ const page = async() => {
                         </h2>
                     </div>
                 </div>
-                <div className="flex my-5">
+                <div className="flex flex-col sm:flex-row my-5">
                 {
                     categories.data && categories.data.map((item: Icategory) => (
                             <SingleItem key={item._id} item={item} />

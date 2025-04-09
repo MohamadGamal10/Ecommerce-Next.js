@@ -8,7 +8,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
 
     const brandsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/brands/${id}`);
     const brands = await brandsRes.json();
-    console.log(brands)
+    // console.log(brands)
     return (
         <section className='my-10'>
             <div className="container">

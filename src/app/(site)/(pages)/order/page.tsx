@@ -21,10 +21,10 @@ const Page = () => {
     const [cartId, setCartId] = useState("");
     const [price, setPrice] = useState(0);
 
-    console.log(selectedOption)
-    console.log(choosedAddress)
-    console.log(phone)
-    console.log(price)
+    // console.log(selectedOption)
+    // console.log(choosedAddress)
+    // console.log(phone)
+    // console.log(price)
 
     const formData = new FormData();
     formData.append("details", choosedAddress)

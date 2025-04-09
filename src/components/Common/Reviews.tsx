@@ -39,7 +39,7 @@ export default function Reviews({ Userdata, reviewsData, rating, quantity }: { U
   const userId = Userdata?.data._id;
   const userName = Userdata?.data.name;
   const reviews = reviewsData?.data;
-  console.log(reviews)
+  // console.log(reviews)
 
   // useEffect(() => {
   //   const get = async () => {
@@ -74,7 +74,7 @@ export default function Reviews({ Userdata, reviewsData, rating, quantity }: { U
       return;
     }
     const review = await createReview(ratingText, ratingValue, id, userId);
-    console.log(review)
+    // console.log(review)
     if (review?.data) {
       notify("تم إضافة التقييم بنجاح", "success");
       // setDone(true)
@@ -96,7 +96,7 @@ export default function Reviews({ Userdata, reviewsData, rating, quantity }: { U
       return;
     }
     const review = await updateReview(ratingTextEdit, ratingValue, reviews[0]._id);
-    console.log(review)
+    // console.log(review)
     if (review?.data) {
       notify("تم تعديل التقييم بنجاح", "success");
       // setDone(true)
@@ -123,7 +123,7 @@ export default function Reviews({ Userdata, reviewsData, rating, quantity }: { U
     } else {
       notify("فشل في حذف التقييم", "error")
     }
-    console.log(review)
+    // console.log(review)
   }
 
   return (

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Ibrand } from '@/types/brand'
 
 const SingleItem = ({ item }: { item: Ibrand }) => {
-    console.log(item)
+    // console.log(item)
     return (
         <Link href={`brands/${item._id}`} className='group flex flex-col mx-auto items-center justify-center my-4'>
             <div className='rounded-full m-2 bg-gray-100 w-full p-6 h-32.5 max-w-[130px] flex items-center justify-center'>
